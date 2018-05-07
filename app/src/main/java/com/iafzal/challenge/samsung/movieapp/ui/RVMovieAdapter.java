@@ -1,12 +1,10 @@
 package com.iafzal.challenge.samsung.movieapp.ui;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,14 +29,10 @@ import retrofit2.Response;
  * Created by iafzal on 5/6/18.
  * Copyright © 2018 Imran Afzal. All rights reserved.
  */
-public class RVMovieAdapter extends RecyclerView.Adapter<RVMovieAdapter.MovieViewHolder>   implements RecyclerView.OnClickListener {
+public class RVMovieAdapter extends RecyclerView.Adapter<RVMovieAdapter.MovieViewHolder> {
 
-    @Override
-    public void onClick(View v) {
-        v.getContext();
-    }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnItemTouchListener, RecyclerView.OnClickListener{
+    public static class MovieViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout mLinearLayoutHorizontal;
 
@@ -59,26 +53,6 @@ public class RVMovieAdapter extends RecyclerView.Adapter<RVMovieAdapter.MovieVie
             mLinearLayoutHorizontal = itemView.findViewById(R.id.ll_horizontal);
         }
 
-        @Override
-        public void onClick(View v) {
-            Intent lIntent = MovieDetailsActivity.newIntent(v.getContext(),  movieId);
-            v.getContext().startActivity(lIntent);
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-            ;
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-            ;
-        }
     }
 
     List<MovieEntity> movies;
