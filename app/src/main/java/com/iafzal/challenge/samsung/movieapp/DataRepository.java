@@ -7,6 +7,7 @@ import com.iafzal.challenge.samsung.movieapp.db.AppDatabase;
 import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * MovieApp
@@ -54,4 +55,15 @@ public class DataRepository {
     }
 
 
+    public void deleteAllMovies(){
+        Executors.newSingleThreadExecutor().execute(() -> {
+            mDatabase.runInTransaction(() -> mDatabase.movieDao().deleteAll());
+        });
+    }
+
+    public void insertMovies(List<MovieEntity> movies){
+        Executors.newSingleThreadExecutor().execute(() -> {
+            mDatabase.runInTransaction(() -> mDatabase.movieDao().insertAll(movies));
+        });
+    }
 }

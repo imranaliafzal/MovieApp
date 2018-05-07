@@ -3,25 +3,19 @@ package com.iafzal.challenge.samsung.movieapp.ui;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
+import com.iafzal.challenge.samsung.movieapp.DataRepository;
 import com.iafzal.challenge.samsung.movieapp.MovieApp;
 import com.iafzal.challenge.samsung.movieapp.R;
-import com.iafzal.challenge.samsung.movieapp.SharedResources;
-import com.iafzal.challenge.samsung.movieapp.db.AppDatabase;
 import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
-import com.iafzal.challenge.samsung.movieapp.model.DiscoverResponse;
+import com.iafzal.challenge.samsung.movieapp.model.MovieReleaseType;
 import com.iafzal.challenge.samsung.movieapp.viewmodel.MainViewModel;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +25,46 @@ public class MainActivity extends AppCompatActivity {
 
     RVMovieAdapter adapter;
 
+    TabLayout mTabLayout;
+
     RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mTabLayout = findViewById(R.id.tabLayout);
+
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                DataRepository lDataRepository = ((MovieApp)getApplication()).getRepository();
+                lDataRepository.deleteAllMovies();
+
+                if(mMainViewModel.getMovieEntityList() != null && mMainViewModel.getMovieEntityList().getValue() != null){
+                    mMainViewModel.getMovieEntityList().getValue().clear();
+                }
+
+                mMainViewModel.setPageNum(1);
+                mMainViewModel.setTotalNumOfPages(1);
+                adapter.notifyDataSetChanged();
+                fetchData();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
 
         final Observer<List<MovieEntity>> movieListObserver
                 = pListMovieEntity -> {
@@ -52,16 +80,15 @@ public class MainActivity extends AppCompatActivity {
                 };
 
         mMainViewModel = new MainViewModel(getApplication());
+        mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mMainViewModel.getMovieEntityList().observe(this, movieListObserver);
 
         mRecyclerView = findViewById(R.id.rv_movieList);
 
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -71,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     Integer pNum =  mMainViewModel.getPageNum()+1;
                     if(pNum <= mMainViewModel.getTotalNumOfPages())
                     mMainViewModel.setPageNum(pNum);
-                    fetchData(mMainViewModel.getPageNum());
+                    fetchData();
                 }
             }
         });
@@ -80,34 +107,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fetchData(mMainViewModel.getPageNum());
+        fetchData();
     }
 
-    public void fetchData(Integer page){
-
-        Log.d("Fetch Data: page-{}", String.valueOf(page));
-
-        SharedResources.getInstance().getWebService().discoverMovie(page).enqueue(new Callback<DiscoverResponse>() {
-            @Override
-            public void onResponse(Call<DiscoverResponse> call, Response<DiscoverResponse> response) {
-
-                Log.d("Response Data: page-{}", String.valueOf(response.body().getPage()));
-
-                mMainViewModel.setTotalNumOfPages(response.body().getTotal_pages());
-
-                List<MovieEntity> movies = response.body().getResults();
-                AppDatabase database = ((MovieApp)getApplication()).getDatabase();
-
-                Executors.newSingleThreadExecutor().execute(()->{
-                    database.runInTransaction(() -> database.movieDao().insertAll(movies));
-                });
-
-            }
-
-            @Override
-            public void onFailure(Call<DiscoverResponse> call, Throwable t) {
-                t.getCause();
-            }
-        });
+    private void fetchData(){
+        MovieReleaseType lMovieReleaseType = (mTabLayout.getSelectedTabPosition() == 0)? MovieReleaseType.NOW_PLAYING:MovieReleaseType.COMING_SOON;
+        mMainViewModel.fetchData(lMovieReleaseType);
     }
+
 }

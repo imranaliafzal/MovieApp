@@ -1,11 +1,10 @@
 package com.iafzal.challenge.samsung.movieapp.db.entity;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * MovieApp
@@ -17,15 +16,14 @@ import java.util.List;
 public class MovieEntity{
     Double popularity;
     Integer vote_count;
-    String poset_path;
+    String poster_path;
     @PrimaryKey
     Integer id;
     Boolean adult;
     String backdrop_path;
     String original_language;
     String original_title;
-    @Ignore
-    List<Integer> genre_ids;
+    ArrayList<Integer> genre_ids;
     String title;
     Double vote_average;
     String overview;
@@ -47,12 +45,12 @@ public class MovieEntity{
         vote_count = pVote_count;
     }
 
-    public String getPoset_path() {
-        return poset_path;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPoset_path(String pPoset_path) {
-        poset_path = pPoset_path;
+    public void setPoster_path(String pPoster_path) {
+        poster_path = pPoster_path;
     }
 
     public Integer getId() {
@@ -95,11 +93,11 @@ public class MovieEntity{
         original_title = pOriginal_title;
     }
 
-    public List<Integer> getGenre_ids() {
+    public ArrayList<Integer> getGenre_ids() {
         return genre_ids;
     }
 
-    public void setGenre_ids(List<Integer> pGenre_ids) {
+    public void setGenre_ids(ArrayList<Integer> pGenre_ids) {
         genre_ids = pGenre_ids;
     }
 

@@ -13,6 +13,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.iafzal.challenge.samsung.movieapp.AppExecutors;
 import com.iafzal.challenge.samsung.movieapp.db.converter.DateConverter;
+import com.iafzal.challenge.samsung.movieapp.db.converter.IntegerArrayConverter;
 import com.iafzal.challenge.samsung.movieapp.db.dao.MovieDao;
 import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
 
@@ -25,7 +26,7 @@ import java.util.List;
  * Copyright © 2018 Spendlabs Inc. All rights reserved.
  */
 @Database(entities = {MovieEntity.class}, version = 1)
-@TypeConverters(DateConverter.class)
+@TypeConverters({DateConverter.class, IntegerArrayConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;

@@ -1,5 +1,6 @@
 package com.iafzal.challenge.samsung.movieapp.db.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
@@ -12,16 +13,29 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity(tableName = "genre",
         indices = {@Index(value = "genre_id")
-        })
+        }
+)
+
 public class GenreEntity {
     @PrimaryKey
-    Integer genre_id;
+    @ColumnInfo(name = "genre_id")
+    Integer id;
+    String name;
+
 
     public Integer getGenre_id() {
-        return genre_id;
+        return id;
     }
 
     public void setGenre_id(Integer pGenre_id) {
-        genre_id = pGenre_id;
+        id = pGenre_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String pName) {
+        name = pName;
     }
 }
