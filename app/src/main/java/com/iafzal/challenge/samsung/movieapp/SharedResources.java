@@ -17,15 +17,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class SharedResources {
 
-    private static final String baseUrl = "https://api.themoviedb.org/4/";
-
-    private static final String accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NGEwYTg1MmI4ODEzZmRlNGM3OTBhZGRmOGQxN2RlZCIsInN1YiI6IjVhZWRmNzVjYzNhMzY4MzQ2MTAwYTNkZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L9Zsj0-ti9ryomY5NbxpBjpJpyWX3J4OwUpm29Qkpho";
 
     private static final SharedResources ourInstance = new SharedResources();
 
+
     private WebService webService;
 
-    private MovieApp mMovieApp;
+    private static final String baseUrl = "https://api.themoviedb.org/4/";
+
+    private static final String accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NGEwYTg1MmI4ODEzZmRlNGM3OTBhZGRmOGQxN2RlZCIsInN1YiI6IjVhZWRmNzVjYzNhMzY4MzQ2MTAwYTNkZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L9Zsj0-ti9ryomY5NbxpBjpJpyWX3J4OwUpm29Qkpho";
 
     public static SharedResources getInstance() {
         return ourInstance;
@@ -60,11 +60,4 @@ public class SharedResources {
         return webService;
     }
 
-    public void setMovieApp(MovieApp pMovieApp){
-        this.mMovieApp = pMovieApp;
-    }
-
-    public MovieApp getMovieApp(){
-        return this.mMovieApp;
-    }
 }

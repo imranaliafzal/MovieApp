@@ -30,7 +30,7 @@ import retrofit2.Response;
  */
 public class MainViewModel extends AndroidViewModel {
 
-    private Integer pageNum = 0;
+    private Integer pageNum;
 
     private Integer totalNumOfPages = 1;
 

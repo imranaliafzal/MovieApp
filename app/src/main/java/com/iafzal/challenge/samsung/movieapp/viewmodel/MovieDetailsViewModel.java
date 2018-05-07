@@ -18,7 +18,6 @@ public class MovieDetailsViewModel extends AndroidViewModel{
 
     LiveData<MovieEntity> mMovieEntityLiveData;
 
-
     public LiveData<MovieEntity> getMovieEntityLiveData(Integer movieId) {
         if(mMovieEntityLiveData.getValue() == null){
             mMovieEntityLiveData = ((MovieApp)getApplication()).getDatabase().movieDao().loadMovie(movieId);

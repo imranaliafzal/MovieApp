@@ -17,8 +17,6 @@ import com.iafzal.challenge.samsung.movieapp.db.converter.IntegerArrayConverter;
 import com.iafzal.challenge.samsung.movieapp.db.dao.MovieDao;
 import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
 
-import java.util.List;
-
 /**
  * MovieApp
  * <p>
@@ -65,13 +63,6 @@ public abstract class AppDatabase extends RoomDatabase {
                         executors.diskIO().execute(() -> {
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                            /*List<MovieEntity> products = DataGenerator.generateProducts();
-                            List<CommentEntity> comments =
-                                    DataGenerator.generateCommentsForProducts(products);*/
-
-//                            insertData(database, products, comments);
-
-                            // notify that the database was created and it's ready to be used
                             database.setDatabaseCreated();
                         });
                     }
@@ -89,19 +80,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private void setDatabaseCreated() {
         mIsDatabaseCreated.postValue(true);
-    }
-
-    private static void insertData(final AppDatabase database, final List<MovieEntity> movies) {
-        database.runInTransaction(() -> {
-            database.movieDao().insertAll(movies);
-        });
-    }
-
-    private static void addDelay() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException ignored) {
-        }
     }
 
     public LiveData<Boolean> getDatabaseCreated() {

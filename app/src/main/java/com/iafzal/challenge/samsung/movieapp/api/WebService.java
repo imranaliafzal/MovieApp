@@ -16,12 +16,6 @@ import retrofit2.http.Query;
  */
 public interface WebService {
 
-    @GET ("discover/movie")
-    Call<DiscoverResponse> discoverMovie();
-
-    @GET("discover/movie")
-    Call<DiscoverResponse> discoverMovie(@Query("page") int page);
-
     @GET("http://image.tmdb.org/t/p/w185/{poster_path}")
     Call<ResponseBody> fetchImage(@Path(value = "poster_path", encoded = true) String poster_path);
 
