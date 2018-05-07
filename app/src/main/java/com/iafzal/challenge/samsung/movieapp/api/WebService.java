@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * MovieApp
  * <p>
  * Created by iafzal on 5/5/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 public interface WebService {
 

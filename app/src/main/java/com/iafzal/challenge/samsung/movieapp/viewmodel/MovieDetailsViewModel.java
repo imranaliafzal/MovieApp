@@ -12,7 +12,7 @@ import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
  * MovieApp
  * <p>
  * Created by iafzal on 5/7/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 public class MovieDetailsViewModel extends AndroidViewModel{
 

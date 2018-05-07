@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  * MovieApp
  * <p>
  * Created by iafzal on 5/6/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 @Entity(tableName = "genre",
         indices = {@Index(value = "genre_id")

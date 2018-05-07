@@ -8,7 +8,7 @@ import java.util.Date;
  * MovieApp
  * <p>
  * Created by iafzal on 5/6/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 public class DateConverter {
     @TypeConverter

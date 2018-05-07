@@ -10,7 +10,7 @@ import java.util.TimeZone;
  * MovieApp
  * <p>
  * Created by iafzal on 5/7/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 public class DateUtil {
     private static DateUtil ourInstance = new DateUtil();

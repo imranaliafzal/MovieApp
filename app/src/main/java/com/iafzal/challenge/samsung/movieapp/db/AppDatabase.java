@@ -21,7 +21,7 @@ import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
  * MovieApp
  * <p>
  * Created by iafzal on 5/6/18.
- * Copyright © 2018 Spendlabs Inc. All rights reserved.
+ * Copyright © 2018 Imran Afzal. All rights reserved.
  */
 @Database(entities = {MovieEntity.class}, version = 1)
 @TypeConverters({DateConverter.class, IntegerArrayConverter.class})
