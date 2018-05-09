@@ -3,10 +3,13 @@ package com.iafzal.challenge.samsung.movieapp.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 
-import com.iafzal.challenge.samsung.movieapp.MovieApp;
+import com.iafzal.challenge.samsung.movieapp.repo.MovieEntityRepository;
+import com.iafzal.challenge.samsung.movieapp.repo.MovieEntityRepositoryImpl;
 import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
+import com.iafzal.challenge.samsung.movieapp.model.DataLoadStateType;
 
 /**
  * MovieApp
@@ -16,17 +19,20 @@ import com.iafzal.challenge.samsung.movieapp.db.entity.MovieEntity;
  */
 public class MovieDetailsViewModel extends AndroidViewModel{
 
-    LiveData<MovieEntity> mMovieEntityLiveData;
+    private MovieEntityRepository repository;
 
-    public LiveData<MovieEntity> getMovieEntityLiveData(Integer movieId) {
-        if(mMovieEntityLiveData.getValue() == null){
-            mMovieEntityLiveData = ((MovieApp)getApplication()).getDatabase().movieDao().loadMovie(movieId);
-        }
-        return mMovieEntityLiveData;
-    }
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
+        repository = new MovieEntityRepositoryImpl();
+    }
+
+    public LiveData<PagedList<MovieEntity>> getMovies() {
+        return repository.getMovies();
+    }
+
+    public LiveData<DataLoadStateType> dataLoadStatus() {
+        return repository.getDataLoadStatus();
     }
 
 }

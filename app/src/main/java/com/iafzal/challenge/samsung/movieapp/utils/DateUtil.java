@@ -31,7 +31,7 @@ public class DateUtil {
     }
 
 
-    public String dateByAddingNumOfMonthsFrom(Date date, int numOfMonth){
+    public String stringDateByAddingNumOfMonthsFrom(Date date, int numOfMonth){
         Calendar cal = Calendar.getInstance();
         cal.clear();
         cal.setTime(date);
@@ -40,14 +40,30 @@ public class DateUtil {
         return formatShortDate(cal.getTime());
     }
 
+    public Date dateByAddingNumOfMonthsFrom(Date date, int numOfMonth){
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, +numOfMonth);
 
-    public String dateBySubtractingNumOfMonthsFrom(Date date, int numOfMonth){
+        return cal.getTime();
+    }
+
+    public String stringDateBySubtractingNumOfMonthsFrom(Date date, int numOfMonth){
         Calendar cal = Calendar.getInstance();
         cal.clear();
         cal.setTime(date);
         cal.add(Calendar.MONTH, -numOfMonth);
 
         return formatShortDate(cal.getTime());
+    }
+
+    public Date dateBySubtractingNumOfMonthsFrom(Date date, int numOfMonth){
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, -numOfMonth);
+        return cal.getTime();
     }
 
 

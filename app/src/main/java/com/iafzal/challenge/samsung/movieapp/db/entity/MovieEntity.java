@@ -1,8 +1,10 @@
 package com.iafzal.challenge.samsung.movieapp.db.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,8 +14,12 @@ import java.util.Date;
  * Created by iafzal on 5/6/18.
  * Copyright © 2018 Imran Afzal. All rights reserved.
  */
-@Entity(tableName = "movie")
-public class MovieEntity{
+@Entity(tableName = "movie",
+        indices = {@Index(value = {"title","release_date","original_title"},
+                unique = true)}
+)
+
+public class MovieEntity implements Serializable{
     Double popularity;
     Integer vote_count;
     String poster_path;

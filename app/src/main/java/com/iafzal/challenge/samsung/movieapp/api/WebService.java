@@ -16,10 +16,15 @@ import retrofit2.http.Query;
  */
 public interface WebService {
 
-    @GET("http://image.tmdb.org/t/p/w185/{poster_path}")
-    Call<ResponseBody> fetchImage(@Path(value = "poster_path", encoded = true) String poster_path);
+    @GET("http://image.tmdb.org/t/p/{size}/{poster_path}")
+    Call<ResponseBody> fetchImage(
+                @Path(value="size", encoded = true) String size,
+                                      @Path(value = "poster_path", encoded = true) String poster_path);
 
     @GET("/4/discover/movie")
     Call<DiscoverResponse> discoverMovie(@Query("primary_release_date.gte") String primaryReleaseDateGte, @Query("primary_release_date.lte") String primaryReleaseDateLte, @Query("page") int page);
+
+    @GET("/4/discover/movie")
+    Call<DiscoverResponse> discoverMovie(@Query(value = "page") int page);
 
 }
